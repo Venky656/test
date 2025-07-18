@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Coders Resume Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-file-pdf"></i> Mass Coders Resume Generator</h1>
+            <p class="subtitle">Built by Dodagatta Nihar - Create professional, ATS-friendly resumes with AI</p>
+        </header>
+
+        <div class="main-content">
+            <form id="resumeForm" class="resume-form">
+                <!-- API Key Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-key"></i> API Configuration</h2>
+                    <div class="form-group">
+                        <label for="apiKey">Google Gemini API Key <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <input type="password" id="apiKey" name="apiKey" required 
+                                   placeholder="Paste your API key here (starts with AIza...)"
+                                   pattern="AI[a-zA-Z0-9_-]{35,}"
+                                   title="Please enter a valid Google Gemini API key starting with 'AI'">
+                            <button type="button" class="toggle-password" onclick="togglePasswordVisibility('apiKey')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="help-text">
+                            🔑 Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a><br>
+                            📝 The API key should start with "AIza" and be around 39 characters long<br>
+                            🔒 Your API key is used only for this session and is not stored on our servers
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2><i class="fas fa-user"></i> Personal Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="john.doe@email.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="City, State">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn URL</label>
+                            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
+                        </div>
+                        <div class="form-group">
+                            <label for="github">GitHub URL</label>
+                            <input type="url" id="github" name="github" placeholder="https://github.com/username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Personal Website</label>
+                        <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="form-section">
+                    <h2><i class="fas fa-briefcase"></i> Professional Summary</h2>
+                    <div class="form-group">
+                        <label for="summary">Professional Summary <span class="required">*</span></label>
+                        <textarea id="summary" name="summary" rows="4" required
+                                  placeholder="Write a compelling professional summary that highlights your key skills and experience..."></textarea>
+                        <small class="help-text">Include keywords from job descriptions to make it ATS-friendly</small>
+                    </div>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-building"></i> Work Experience</h2>
+                    <div class="form-group">
+                        <label for="experienceCount">Number of Experiences</label>
+                        <input type="number" id="experienceCount" name="experienceCount" min="0" max="10" value="2" 
+                               onchange="updateExperienceFields()">
+                    </div>
+                    <div id="experienceContainer">
+                        <!-- Experience fields will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-code"></i> Projects</h2>
+                    <div class="form-group">
+                        <label for="projectCount">Number of Projects</label>
+                        <input type="number" id="projectCount" name="projectCount" min="0" max="10" value="2" 
+                               onchange="updateProjectFields()">
+                    </div>
+                    <div id="projectContainer">
+                        <!-- Project fields will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Education Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                    <div class="form-group">
+                        <label for="educationCount">Number of Educational Entries</label>
+                        <input type="number" id="educationCount" name="educationCount" min="0" max="5" value="1" 
+                               onchange="updateEducationFields()">
+                    </div>
+                    <div id="educationContainer">
+                        <!-- Education fields will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-cogs"></i> Skills</h2>
+                    <div class="form-group">
+                        <label for="skills">Skills (separated by comma) <span class="required">*</span></label>
+                        <textarea id="skills" name="skills" rows="3" required
+                                  placeholder="JavaScript, Python, React, Node.js, Machine Learning, AWS, Docker"></textarea>
+                        <small class="help-text">Separate skills with commas. Include both technical and soft skills.</small>
+                    </div>
+                </div>
+
+                <!-- Certifications Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-certificate"></i> Certifications</h2>
+                    <div class="form-group">
+                        <label for="certifications">Certifications (optional)</label>
+                        <textarea id="certifications" name="certifications" rows="3"
+                                  placeholder="AWS Certified Solutions Architect, Google Cloud Professional, etc."></textarea>
+                        <small class="help-text">List your professional certifications, one per line or separated by commas.</small>
+                    </div>
+                </div>
+
+                <!-- Languages Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-globe"></i> Languages</h2>
+                    <div class="form-group">
+                        <label for="languages">Languages (optional)</label>
+                        <textarea id="languages" name="languages" rows="2"
+                                  placeholder="English (Native), Spanish (Fluent), French (Intermediate)"></textarea>
+                        <small class="help-text">Include proficiency levels for each language.</small>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-section">
+                    <button type="submit" class="generate-btn" id="generateBtn">
+                        <i class="fas fa-magic"></i> Generate Resume
+                    </button>
+                </div>
+            </form>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <h2><i class="fas fa-check-circle"></i> Resume Generated Successfully!</h2>
+                
+                <div class="results-content">
+                    <div class="latex-preview">
+                        <h3><i class="fas fa-code"></i> LaTeX Code Preview</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyToClipboard('latexCode')">
+                                <i class="fas fa-copy"></i> Copy Code
+                            </button>
+                            <pre><code id="latexCode"></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="download-section">
+                        <h3><i class="fas fa-download"></i> Download Your Resume</h3>
+                        <button id="downloadBtn" class="download-btn" style="display: none;">
+                            <i class="fas fa-file-pdf"></i> Download PDF Resume
+                        </button>
+                        <div id="loadingMessage" class="loading-message">
+                            <i class="fas fa-spinner fa-spin"></i> Compiling PDF...
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="new-resume-btn" onclick="resetForm()">
+                    <i class="fas fa-plus"></i> Create New Resume
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h3>Generating Your Resume...</h3>
+                <p id="loadingText">Processing your information with AI...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
