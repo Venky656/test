@@ -68,7 +68,7 @@ app.post('/api/generate-latex', async (req, res) => {
 
         // Generate LaTeX using Gemini AI with provided API key
         const genAIInstance = new GoogleGenerativeAI(apiKey);
-        const model = genAIInstance.getGenerativeModel({ model: "gemini-pro" });
+        const model = genAIInstance.getGenerativeModel({ model: "gemini-1.5-flash" });
         const prompt = createLatexPrompt(resumeData);
         
         const result = await model.generateContent(prompt);

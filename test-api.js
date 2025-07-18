@@ -23,7 +23,7 @@ async function testDynamicApiKey(apiKey) {
         
         // Initialize Gemini AI with provided API key
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         
         console.log('🔄 Testing API connection...');
         
