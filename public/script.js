@@ -373,6 +373,9 @@ document.getElementById('resumeForm').addEventListener('submit', async function(
         delete resumeData.apiKey;
         
         // Generate LaTeX
+        console.log('Sending API request with data:', resumeData);
+        console.log('API Key (first 10 chars):', formData.apiKey.substring(0, 10) + '...');
+        
         const latexResponse = await fetch('/api/generate-latex', {
             method: 'POST',
             headers: {
@@ -382,12 +385,17 @@ document.getElementById('resumeForm').addEventListener('submit', async function(
             body: JSON.stringify(resumeData)
         });
 
+        console.log('LaTeX Response status:', latexResponse.status);
+        console.log('LaTeX Response headers:', latexResponse.headers);
+
         if (!latexResponse.ok) {
             const errorData = await latexResponse.json();
+            console.error('LaTeX Error response:', errorData);
             throw new Error(errorData.error || 'Failed to generate LaTeX');
         }
 
         const latexResult = await latexResponse.json();
+        console.log('LaTeX Result:', latexResult);
         currentFilename = latexResult.filename;
 
         updateLoadingText('Compiling PDF document...');
@@ -417,8 +425,12 @@ document.getElementById('resumeForm').addEventListener('submit', async function(
 
     } catch (error) {
         showLoading(false);
-        showError(error.message);
-        console.error('Error generating resume:', error);
+        console.error('Full error details:', error);
+        console.error('Error stack:', error.stack);
+        showError(`Error: ${error.message}`);
+        
+        // Show detailed error for debugging
+        alert(`Debug Error: ${error.message}\n\nCheck browser console for more details.`);
     }
 });
 
