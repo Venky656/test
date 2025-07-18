@@ -23,12 +23,18 @@
                         <label for="apiKey">Google Gemini API Key <span class="required">*</span></label>
                         <div class="input-with-icon">
                             <input type="password" id="apiKey" name="apiKey" required 
-                                   placeholder="Enter your Google Gemini API key">
+                                   placeholder="Paste your API key here (starts with AIza...)"
+                                   pattern="AI[a-zA-Z0-9_-]{35,}"
+                                   title="Please enter a valid Google Gemini API key starting with 'AI'">
                             <button type="button" class="toggle-password" onclick="togglePasswordVisibility('apiKey')">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
-                        <small class="help-text">Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></small>
+                        <small class="help-text">
+                            🔑 Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a><br>
+                            📝 The API key should start with "AIza" and be around 39 characters long<br>
+                            🔒 Your API key is used only for this session and is not stored on our servers
+                        </small>
                     </div>
                 </div>
 

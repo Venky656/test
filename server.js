@@ -10,8 +10,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize Google Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Google Gemini AI will be initialized dynamically with user's API key
 
 // Middleware
 app.use(cors());
@@ -57,7 +56,14 @@ app.post('/api/generate-latex', async (req, res) => {
         }
 
         if (!apiKey) {
-            return res.status(400).json({ error: 'API key is required' });
+            return res.status(400).json({ error: 'Google Gemini API key is required. Please provide your API key in the form.' });
+        }
+
+        // Validate API key format (basic check)
+        if (!apiKey.startsWith('AI') || apiKey.length < 30) {
+            return res.status(400).json({ 
+                error: 'Invalid API key format. Please provide a valid Google Gemini API key starting with "AI".' 
+            });
         }
 
         // Generate LaTeX using Gemini AI with provided API key

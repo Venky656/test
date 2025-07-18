@@ -6,14 +6,16 @@ An AI-powered Resume Generator that converts user input into professional, ATS-f
 
 ## 🚀 Features
 
-- **AI-Powered LaTeX Generation**: Uses Google Gemini API to convert structured data into professional LaTeX resume code
-- **ATS-Friendly**: Generates clean, simple resumes optimized for Applicant Tracking Systems
-- **Real-time PDF Compilation**: Automatically compiles LaTeX to PDF using pdflatex
-- **Modern UI**: Beautiful, responsive interface with smooth animations
-- **Dynamic Form Fields**: Add/remove experience, projects, and education entries
-- **Auto-save**: Automatically saves form data locally
-- **LaTeX Code Preview**: View and copy the generated LaTeX code
-- **One-Click Download**: Download your compiled PDF resume instantly
+- **🔑 Dynamic API Key**: Users provide their own Google Gemini API key - no server-side storage required
+- **🤖 AI-Powered LaTeX Generation**: Uses Google Gemini API to convert structured data into professional LaTeX resume code
+- **📊 ATS-Friendly**: Generates clean, simple resumes optimized for Applicant Tracking Systems
+- **⚡ Real-time PDF Compilation**: Automatically compiles LaTeX to PDF using pdflatex
+- **🎨 Modern UI**: Beautiful, responsive interface with smooth animations
+- **➕ Dynamic Form Fields**: Add/remove experience, projects, and education entries
+- **💾 Auto-save**: Automatically saves form data locally
+- **👀 LaTeX Code Preview**: View and copy the generated LaTeX code
+- **📥 One-Click Download**: Download your compiled PDF resume instantly
+- **🔒 Privacy First**: API keys are only used for the current session and never stored
 
 ## 📋 Prerequisites
 
@@ -24,7 +26,31 @@ Before running this application, make sure you have:
    - **Linux**: `sudo apt-get install texlive-latex-recommended texlive-fonts-recommended`
    - **macOS**: Install MacTeX from [https://www.tug.org/mactex/](https://www.tug.org/mactex/)
    - **Windows**: Install MiKTeX from [https://miktex.org/](https://miktex.org/)
-3. **Google Gemini API Key**: Get one from [Google AI Studio](https://makersuite.google.com/app/apikey)
+3. **Google Gemini API Key**: Each user needs their own (see setup below)
+
+## 🔑 Google Gemini API Key Setup
+
+Each user needs to provide their own Google Gemini API key for AI-powered resume generation:
+
+### Steps to Get Your API Key:
+
+1. **Visit [Google AI Studio](https://makersuite.google.com/app/apikey)**
+2. **Sign in** with your Google account
+3. **Click "Create API Key"**
+4. **Copy the generated key** (starts with "AIza...")
+5. **Paste it in the application form** when generating your resume
+
+### Key Features:
+- ✅ **Free to use** (with generous quotas)
+- ✅ **No server storage** - your key is used only during your session
+- ✅ **Privacy focused** - each user manages their own API access
+- ✅ **Instant setup** - no complex authentication flows
+
+### Testing Your API Key:
+```bash
+# Test your API key before using the application
+node test-api.js YOUR_API_KEY_HERE
+```
 
 ## 🛠️ Installation
 

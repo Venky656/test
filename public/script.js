@@ -200,20 +200,21 @@ function toggleEndDate(index) {
     }
 }
 
-// Toggle password visibility
-function togglePasswordVisibility(fieldId) {
-    const field = document.getElementById(fieldId);
-    const button = field.nextElementSibling;
-    const icon = button.querySelector('i');
+// Toggle password visibility for API key
+function togglePasswordVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    const button = input.parentElement.querySelector('.toggle-password i');
     
-    if (field.type === 'password') {
-        field.type = 'text';
-        icon.className = 'fas fa-eye-slash';
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.className = 'fas fa-eye-slash';
     } else {
-        field.type = 'password';
-        icon.className = 'fas fa-eye';
+        input.type = 'password';
+        button.className = 'fas fa-eye';
     }
 }
+
+
 
 // Collect form data
 function collectFormData() {
@@ -344,8 +345,13 @@ document.getElementById('resumeForm').addEventListener('submit', async function(
         const formData = collectFormData();
         
         // Validate required fields
-        if (!formData.apiKey) {
-            throw new Error('Google Gemini API key is required');
+        if (!formData.apiKey || formData.apiKey.trim() === '') {
+            throw new Error('Google Gemini API key is required. Please get your free API key from: https://makersuite.google.com/app/apikey');
+        }
+        
+        // Basic API key format validation
+        if (!formData.apiKey.trim().startsWith('AI') || formData.apiKey.trim().length < 30) {
+            throw new Error('Invalid API key format. Please ensure you\'ve entered a valid Google Gemini API key.');
         }
         if (!formData.personalInfo.fullName) {
             throw new Error('Full name is required');
